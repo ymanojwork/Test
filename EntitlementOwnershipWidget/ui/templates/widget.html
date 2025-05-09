@@ -1,0 +1,118 @@
+<div class="entitlement-ownership-widget">
+   <!-- Panel Header with Search Bar -->
+   <div class="panel-heading">
+      <div class="row">
+         <div class="col-xs-12 col-md-9">
+            <div class="form-group m-b-none">
+               <div class="input-group">
+                  <input type="text" class="form-control input-sm ng-pristine ng-untouched ng-valid ng-empty" 
+                     ng-attr-placeholder="{{ 'direct_report_search_for_placeholder' | spTranslate }}" 
+                     ng-model="ctrl.searchScratchPad.searchTerm"
+                     ng-keypress="ctrl.search($event)"
+					 placeholder="Search for...">
+                  <span class="input-group-btn">
+                     <button class="btn btn-white btn-sm" type="button" ng-click="ctrl.search()">
+                        <i class="fa fa-search text-info" role="presentation"></i>
+                     </button>
+                  </span>
+               </div>
+            </div>
+         </div>
+         <div class="col-xs-12 col-md-3 text-right">
+            <a id="csvExportLink" ng-click="ctrl.exportToCSV()" 
+               class="btn btn-white btn-sm" href="javascript:void(0)">
+               <i class="fa fa-download fa-lg" role="presentation"></i>
+               <span class="sr-only">{{ 'Export entitlement data' | spTranslate }}</span>
+            </a>
+         </div>
+      </div>
+   </div>
+
+   <!-- Panel Body with Entitlement List -->
+   <div class="panel-body" sp-loading-mask="ctrl.items">
+      <div tabindex="50" class="list-group entitlement-list"
+         sp-focus-snatcher="ctrl.focusOnList"
+         sp-focus-snatcher-element="#entitlementOwnershipWidgetRow{{ ctrl.getPageState().pagingData.getStart() }}"
+         sp-focus-snatcher-wait="1250"
+         ng-style="{ 'top': -250 * ctrl.displayedPageNumber + 'px' }">
+         <div class="list-group-item text-center empty-widget"
+            ng-if="ctrl.items.length === 0">
+            <p class="h4 text-muted">{{ 'ui_widget_no_data' | spTranslate }}</p>
+         </div>
+         <div class="list-group-item">
+            <div class="row col-header">
+               <div class="col-xs-4 ng-scope">
+                  <span class="text-muted">
+                  <strong><span class="text-ellipsis ng-binding">Name</span></strong>
+                  </span>
+               </div>
+               <div class="col-xs-4 ng-scope">
+                  <span class="text-muted">
+                  <strong><span class="text-ellipsis ng-binding">Application</span></strong>
+                  </span>
+               </div>
+               <div class="col-xs-4 ng-scope text-center">
+                  <span class="text-muted">
+                  <strong><span class="text-ellipsis ng-binding">Actions</span></strong>
+                  </span>
+               </div>
+            </div>
+         </div>
+         <div class="list-group-item" ng-repeat="entitlement in ctrl.items track by $index">
+            <div class="row" tabindex="-1" id="entitlementOwnershipWidgetRow{{ $index }}">
+               <div class="col-xs-4">
+                  <span class="text-ellipsis" title="{{ entitlement.displayName }}">{{ entitlement.displayName }}</span>
+               </div>
+               <div class="col-xs-4">
+                  <span class="text-ellipsis" title="{{ entitlement.applicationName }}">{{ entitlement.applicationName }}</span>
+               </div>
+               <div class="col-xs-4 text-center">
+                  <button class="btn btn-white btn-sm" 
+                     ng-click="ctrl.openDetailsDialog(entitlement)" 
+                     type="button" 
+                     aria-label="Details for {{ entitlement.displayName }}">
+                     Details
+                  </button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="panel-footer">
+      <div class="row">
+         <div class="col-xs-4">
+            <p class="m-t-xs m-b-xs">
+               <b id="entitlementOwnershipWidgetTotal">{{ ctrl.pageState.pagingData.getTotal() }}</b>
+               {{ 'ui_total' | spTranslate }}
+            </p>
+         </div>
+         <div id="entitlementOwnershipWidgetPageInfo" class="col-xs-8 text-right"
+            ng-if="ctrl.pageState.pagingData.hasMultiplePages()">
+            <p class="inline m-t-xs m-b-xs m-r-sm">
+               <sp-current-page-info ng-model="ctrl.pageState.pagingData"
+                  sp-hide-total="true" />
+            </p>
+            <div class="inline">
+               <div class="btn-group" role="group">
+                  <button ng-click="ctrl.previousPage()"
+                     id="entitlementOwnershipWidgetPrevBtn"
+                     class="btn btn-sm btn-white"
+                     tabindex="50"
+                     ng-disabled="!ctrl.pageState.pagingData.hasPrevious()">
+                  <i class="fa fa-chevron-up" role="presentation"></i>
+                  <span class="sr-only">{{ 'direct_report_pager_prev' | spTranslate }}</span>
+                  </button>
+                  <button ng-click="ctrl.nextPage()"
+                     id="entitlementOwnershipWidgetsNextBtn"
+                     class="btn btn-sm btn-white"
+                     tabindex="50"
+                     ng-disabled="!ctrl.pageState.pagingData.hasNext()">
+                  <i class="fa fa-chevron-down" role="presentation"></i>
+                  <span class="sr-only">{{ 'direct_report_pager_next' | spTranslate }}</span>
+                  </button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
