@@ -1,0 +1,128 @@
+/**
+ * CSS styles for the MyEntitlementsandRolesWidget
+ */
+ .entitlement-roles-widget {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Spacing for filter buttons */
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+/* Item list container */
+.item-list {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    margin-top: 10px;
+}
+
+/* Individual item container */
+.item-container {
+    border-bottom: 1px solid #eee;
+}
+
+.item-container:last-child {
+    border-bottom: none;
+}
+
+/* Item name/header row - clickable */
+.item-name {
+    padding: 10px 15px;
+    background-color: #f7f7f7;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.item-name:hover {
+    background-color: #edf2f7;
+}
+
+/* Type indicator icons */
+.item-type-indicator {
+    display: inline-block;
+    width: 20px;
+    margin-right: 8px;
+    text-align: center;
+}
+
+.entitlement-type {
+    color: #3498db; /* Blue for entitlements */
+}
+
+.role-type {
+    color: #2ecc71; /* Green for roles */
+}
+
+/* Details indicator (arrow) */
+.details-indicator {
+    color: #888;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* Item details container */
+.item-details {
+    padding: 15px;
+    background-color: #fafafa;
+    border-top: 1px solid #eee;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Individual detail row */
+.detail-row {
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.detail-row:last-child {
+    margin-bottom: 0;
+}
+
+/* Detail label */
+.detail-label {
+    width: 150px;
+    color: #666;
+    font-weight: 500;
+    padding-right: 10px;
+}
+
+/* Detail value */
+.detail-value {
+    flex: 1;
+    min-width: 200px;
+    word-break: break-word;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 600px) {
+    .detail-label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    .detail-value {
+        width: 100%;
+    }
+    
+    .detail-row {
+        flex-direction: column;
+    }
+}

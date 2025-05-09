@@ -1,0 +1,112 @@
+<!-- MyEntitlementsandRoles Widget HTML
+     Features:
+     1. Widget title "My Entitlements and Roles"
+     2. Type filtering options (All, Entitlements, Roles)
+     3. Search functionality
+     4. Display names only (clickable for details)
+-->
+<div class="panel panel-default entitlement-roles-widget">
+   <div class="panel-heading">
+       <div class="row">
+           <div class="col-md-6">
+               <h3 class="panel-title">{{vm.config.title || 'My Entitlements and Roles'}}</h3>
+           </div>
+           <div class="col-md-6">
+               <div class="input-group">
+                   <input type="text" class="form-control" placeholder="Search..." 
+                          ng-model="vm.searchText" ng-change="vm.searchItems()">
+                   <span class="input-group-btn">
+                       <button class="btn btn-default" type="button" ng-click="vm.searchItems()">
+                           <i class="fa fa-search"></i>
+                       </button>
+                   </span>
+               </div>
+           </div>
+       </div>
+   </div>
+   
+   <div class="panel-body">
+       <!-- Type filter buttons -->
+       <div class="btn-group btn-group-sm mb-10" role="group">
+           <button type="button" class="btn" 
+                   ng-class="{'btn-primary': vm.showEntitlements && vm.showRoles, 'btn-default': !(vm.showEntitlements && vm.showRoles)}"
+                   ng-click="vm.filterByType('all')">All</button>
+           <button type="button" class="btn" 
+                   ng-class="{'btn-primary': vm.showEntitlements && !vm.showRoles, 'btn-default': !(vm.showEntitlements && !vm.showRoles)}"
+                   ng-click="vm.filterByType('entitlement')">Entitlements</button>
+           <button type="button" class="btn" 
+                   ng-class="{'btn-primary': !vm.showEntitlements && vm.showRoles, 'btn-default': !(!vm.showEntitlements && vm.showRoles)}"
+                   ng-click="vm.filterByType('role')">Roles</button>
+       </div>
+       
+       <div ng-show="vm.loading" class="text-center">
+           <i class="fa fa-spinner fa-spin fa-2x"></i>
+           <p>Loading...</p>
+       </div>
+       
+       <div ng-show="vm.error" class="alert alert-danger">
+           {{vm.error}}
+       </div>
+       
+       <div ng-show="!vm.loading && !vm.error">
+           <!-- List of items (entitlements and/or roles) -->
+           <div class="item-list">
+               <div ng-repeat="item in vm.items" class="item-container">
+                   <!-- Item name with type indicator and clickable to show details -->
+                   <div class="item-name" ng-click="vm.showItemDetails(item)">
+                       <span class="item-type-indicator" ng-class="{'entitlement-type': item.ownershipType === 'ENTITLEMENT', 'role-type': item.ownershipType === 'ROLE'}">
+                           <i class="fa" ng-class="{'fa-key': item.ownershipType === 'ENTITLEMENT', 'fa-users': item.ownershipType === 'ROLE'}"></i>
+                       </span>
+                       {{item.displayName}}
+                       <span class="details-indicator">
+                           <i class="fa" ng-class="{'fa-chevron-down': vm.selectedItem && vm.selectedItem.id === item.id, 'fa-chevron-right': !(vm.selectedItem && vm.selectedItem.id === item.id)}"></i>
+                       </span>
+                   </div>
+                   
+                   <!-- Details panel (initially hidden, shown when clicked) -->
+                   <div class="item-details" ng-show="vm.selectedItem && vm.selectedItem.id === item.id">
+                       <!-- Common details for both types -->
+                       <div class="detail-row" ng-if="item.description">
+                           <span class="detail-label">Description:</span>
+                           <span class="detail-value">{{item.description}}</span>
+                       </div>
+                       
+                       <!-- Entitlement-specific details -->
+                       <div class="detail-row" ng-if="item.application">
+                           <span class="detail-label">Application:</span>
+                           <span class="detail-value">{{item.application}}</span>
+                       </div>
+                       
+                       <!-- Role-specific details -->
+                       <div ng-if="item.ownershipType === 'ROLE'">
+                           <!-- Add role-specific details here -->
+                       </div>
+                       
+                       <!-- Additional attributes -->
+                       <div class="detail-row" ng-repeat="(key, value) in item.additionalAttributes">
+                           <span class="detail-label">{{key}}:</span>
+                           <span class="detail-value">{{value}}</span>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           
+           <div ng-show="vm.items.length === 0" class="text-center">
+               <p>No items found.</p>
+           </div>
+           
+           <div class="text-center" ng-show="vm.totalItems > vm.itemsPerPage">
+               <uib-pagination 
+                   total-items="vm.totalItems" 
+                   ng-model="vm.currentPage" 
+                   max-size="5" 
+                   class="pagination-sm" 
+                   boundary-links="true" 
+                   force-ellipses="true"
+                   items-per-page="vm.itemsPerPage"
+                   ng-change="vm.changePage(vm.currentPage)">
+               </uib-pagination>
+           </div>
+       </div>
+   </div>
+</div>

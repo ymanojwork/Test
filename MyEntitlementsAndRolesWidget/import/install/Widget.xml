@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Widget PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Widget name="MyEntitlementsandRolesWidget" title="My Entitlements and Roles">
+  <Selector>
+    <IdentitySelector>
+      <MatchExpression>
+        <MatchTerm name="capabilities" value="EntitlementRoleOwner"/>
+      </MatchExpression>
+    </IdentitySelector>
+  </Selector>
+</Widget>

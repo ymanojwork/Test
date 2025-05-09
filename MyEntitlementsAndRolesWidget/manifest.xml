@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Plugin PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Plugin certificationLevel="None" displayName="My Entitlements and Roles" minSystemVersion="8.3" name="MyEntitlementsandRoles" version="1.0">
+  <Attributes>
+    <Map>
+      <entry key="minUpgradableVersion" value="1.0" />
+      <entry key="fullPage">
+         <value>
+            <FullPage title="My Entitlements and Roles"/>
+         </value>
+      </entry>
+      <entry key="restResources">
+        <value>
+          <List>
+            <String>com.sailpoint.plugin.myentitlementsandroles.rest.EntitlementRolesResource</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="snippets">
+        <value>
+          <List>
+           <Snippet regexPattern=".*\/home\.?(jsf|xhtml)">
+              <Scripts>
+                <String>ui/js/AbstractListController.js</String>
+                <String>ui/js/MyEntitlementsAndRolesModule.js</String>
+              </Scripts>
+            </Snippet>
+          </List>
+        </value>
+      </entry>
+      <entry key="messages">
+        <value>
+          <Map>
+            <entry key="en_US">
+              <value>
+                <Map>
+                  <entry key="Export my entitlements and roles data" value="Export my entitlements and roles data"/>
+                </Map>
+              </value>
+            </entry>
+          </Map>
+        </value>
+      </entry>
+      <entry key="templates">
+        <value>
+          <Map>
+            <entry key="ui/templates/widget.html">
+              <value>
+                <Template name="ui/templates/myentitlementsandroleswidget.html"/>
+              </value>
+            </entry>
+          </Map>
+        </value>
+      </entry>
+      <entry key="serviceExecutors">
+        <value>
+          <List>
+            <String></String>
+          </List>
+        </value>
+      </entry>
+    </Map>
+  </Attributes>
+</Plugin>
